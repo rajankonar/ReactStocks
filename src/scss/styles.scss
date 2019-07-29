@@ -26,6 +26,12 @@ $color-green: #006f3c;
     .my-chart div{
       margin: 0 auto;
     }
+    .up{
+      color: $color-green;
+    }
+    .down{
+      color: $color-red;
+    }
   }
 }
 

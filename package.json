@@ -1,11 +1,14 @@
 {
   "name": "reactwebpack",
   "version": "1.0.0",
+  "homepage": "https://rajankonar.github.io/ReactStocks/",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "webpack -d && copy src\\index.html dist\\index.html && webpack-dev-server --content-base src/ --inline --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +20,7 @@
     "babel-loader": "^8.0.6",
     "create-react-class": "^15.6.2",
     "css-loader": "^3.1.0",
+    "gh-pages": "^2.0.1",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",

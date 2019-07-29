@@ -38,7 +38,7 @@ class StockRow extends Component {
         {this.props.stocksData.map(row => (
           <TableRow key={row[1]}> 
             <TableCell component="th"	scope="row"> {row[0]} </TableCell> 
-            <TableCell align="right"> {row[1].toFixed(3)} </TableCell> 
+            <TableCell align="right" className={row['priceStatus']}> {row[1].toFixed(3)} </TableCell> 
             <TableCell align="right"> 
               <PriceStatus status={row['priceStatus']} />
             </TableCell> 
