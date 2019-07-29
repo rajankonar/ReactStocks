@@ -3,59 +3,34 @@ import { createStore, applyMiddleware,combineReducers } from 'redux';
 
 const initialState ={
   stocks:[],
-  stocksNames:[],
-  stocksPrice:[]
+  stocksPrice:[],
+  stocksGraphData:[]
 }
 
 
-/*state.stocks.map(
-        obj => (obj[0] === state.stocks[sIndex][0]  ? Object.assign(obj, { 1:  action.payload.stockprice,2: action.payload.stockpricestatus,3:new Date  })  : obj )
-      )*/
 
+/* reducer actions */
 const reducer = (state = initialState, action) => {
-  switch (action.type){
-    case "ADDGRAPH":
-      //state.result =+action.payload;
-      state = {
-        stocks: [...state.stocks, [action.payload.stockname,action.payload.stockprice,new Date]],
-        stocksNames:[...state.stocksNames,action.payload.stockname]
-      };
-      break;
-    case "UPDATEGRAPH":
-      const sIndex = state.stocks.findIndex((e) => e[0] === action.payload.stockname);
-      
-      state.stocks.map(
-        obj => (obj[0] === state.stocks[sIndex][0]  ? Object.assign(obj, { 1:  action.payload.stockprice,2: action.payload.stockpricestatus,3:new Date  })  : obj )
-      )
-      break;
+  if(action.type == "ADDGRAPH"){
+    state.stocks[action.payload.stockname] = [0,action.payload.stockprice];
+    state.stocksGraphData[action.payload.stockname] = action.payload.stockprice;
+  }else if(action.type == "UPDATEGRAPH"){
+    state.stocksPrice = [...state.stocksPrice,action.payload.stockprice] ;
+    state.stocks[action.payload.stockname] = [...state.stocksPrice,action.payload.stockprice];
+    if(state.stocks[action.payload.stockname].length > 6){
+      state.stocks[action.payload.stockname] = state.stocks[action.payload.stockname].slice(Math.max(state.stocks[action.payload.stockname].length - 5, 1));
+    }
+    state.stocksGraphData[action.payload.stockname] = action.payload.stockprice;
   }
   return state;
 }
 
+/* reducer store */
 const store = createStore(reducer);
 
 store.subscribe(() => {
   //console.log('store updated',store.getState()); 
 });
-
-/*store.dispatch({
-  type: "ADD",
-  stockname:'ebr',
-  payload: 10
-});
-
-store.dispatch({
-  type: "ADD",
-  stockname:'mu',
-  payload: 20
-});
-
-store.dispatch({
-  type: "UPDATE",
-  stockname:'mu',
-  payload: 100
-});*/
-
 
 
 export default store;

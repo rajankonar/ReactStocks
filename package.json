@@ -1,6 +1,6 @@
 {
   "name": "reactwebpack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://rajankonar.github.io/ReactStocks/",
   "description": "",
   "main": "index.js",
@@ -35,10 +35,11 @@
     "@material-ui/icons": "^4.2.1",
     "chart.js": "^2.8.0",
     "react": "^16.8.6",
-    "react-chartkick": "^0.3.2",
+    "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "react-sparklines": "^1.7.0",
+    "react-timeago": "^4.4.0",
     "redux": "^4.0.4"
   }
 }

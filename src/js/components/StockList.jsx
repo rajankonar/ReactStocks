@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import StockRow from './StockRow.jsx';
-
+import MyChart from './MyChart.jsx';
 import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Table from '@material-ui/core/Table';
@@ -15,31 +15,22 @@ import store from './Store.jsx';
 
 const url = 'ws://stocks.mnet.website/';
 
-
 class StockList extends Component{
 
   constructor(props){
     super(props);
     this.state = {
-      stocksData: [], 
-      connectionStatus: false,
+      stocksData: [],
       response: []
     };
   }
 
   componentDidMount() {
     this.response = new WebSocket(url);
-    this.response.onopen = this.setState({
-      connectionStatus: true
-    });
     this.response.onmessage = this.stockEventListener.bind(this);
-    this.response.onclose = this.setState({
-      connectionStatus: false
-    });
   }
   stockEventListener(event) {
-    var data = JSON.parse(event.data),
-        historyCheck,priceStatus = '';
+    var data = JSON.parse(event.data),priceStatus = '';
     data.map(function (data, index) {
       var indexStatus = this.state.stocksData.findIndex((e) => e[0] === data[0]);
       if (indexStatus != -1) {
@@ -51,7 +42,7 @@ class StockList extends Component{
         }));
         this.setState(stocksData => ({
           stocksData: this.state.stocksData.map(
-            obj => (obj[0] === this.state.stocksData[indexStatus][0]  ? Object.assign(obj, { 1: data[1] })  : obj )
+            obj => (obj[0] === this.state.stocksData[indexStatus][0]  ? Object.assign(obj, { 1: data[1],2:new Date })  : obj )
           )
         }));
 
@@ -67,9 +58,8 @@ class StockList extends Component{
         priceStatus='';
         if(this.state.stocksData.length <10){
           this.setState({
-            stocksData: [...this.state.stocksData, [data[0], data[1]]]
+            stocksData: [...this.state.stocksData, [data[0], data[1], new Date]]
           })
-
           store.dispatch({
             type: "ADDGRAPH",
             payload:{
@@ -79,10 +69,9 @@ class StockList extends Component{
           });
         }
       }
-      
+
       /* clearing variables */
       priceStatus ='';
-      historyCheck ='';
     }, this);
   }
 
@@ -94,6 +83,8 @@ class StockList extends Component{
         </AppBar>
         <div className="stock-list">
           <Container maxWidth="md">
+            <label className="stock-label"> Stocks grap updates :  </label>
+            <MyChart stocksData={this.state.stocksData}></MyChart>
             <label className="stock-label"> You can find update of stocks over here!! </label>
             <Paper className="root">
               <Table className="table">

@@ -10,28 +10,69 @@
 $color-red: #bf212f;
 $color-green: #006f3c;
 .stock-app {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Raleway', sans-serif;
   header {
     font-size: 21px;
     padding: 10px 0;
   }
   .stock-list {
-    margin-top: 50px;
+    margin: 50px 0;
     display: table;
     width: 100%;
     .stock-label {
-      margin: 15px 0 20px;
+      margin: 40px 0 20px;
       display: block;
     }
-    .my-chart div{
+    .my-chart div {
       margin: 0 auto;
     }
-    .up{
+    svg.up {
       color: $color-green;
     }
-    .down{
+    svg.down {
       color: $color-red;
+    }
+    thead.MuiTableHead-root {
+      background-color: #3f51b5;
+      .MuiTableRow-head .MuiTableCell-head {
+        color: #fff;
+        font-size: 16px;
+        &:nth-child(2),&:nth-child(3){
+          text-align: center;
+          padding: 14px 0;
+          min-width: 80px;
+        }
+      }
+    }
+    tbody.MuiTableBody-root tr.MuiTableRow-root {
+      & td.MuiTableCell-body {
+        padding: 14px 0;
+        text-align: center;
+        &:last-child{
+          text-align: right;
+          padding-right: 16px;
+        }
+        &.up {
+          background: rgba(0, 111, 60, 0.30);
+        }
+        &.down {
+          background: rgba(191, 33, 47, 0.30);
+
+        }
+      }
+      th.MuiTableCell-body {
+        color: #3f51b5;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+    td.MuiTableCell-root.MuiTableCell-body time {
+      color: #3f51b5;
+      font-weight: 300;
+    }
+    .center-tag{
+      text-align: center;
+      padding: 14px 0;
     }
   }
 }
-
